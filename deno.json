@@ -1,0 +1,9 @@
+{
+    "imports": {
+        "$/": "./",
+        "path-to-regexp": "npm:path-to-regexp"
+    },
+    "tasks": {
+        "dev": "deno run -A --watch index.deno.ts"
+    }
+}
