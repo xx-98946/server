@@ -20,7 +20,7 @@ export class TestPage extends LitElement {
   render() {
     return html`
             <h1>组件列表</h1>
-            <a href="/api">/api</a>
+            <a href="/">/首页</a>
             <simple-greeting></simple-greeting>
             <full-component></full-component>
             <properties-basic></properties-basic>

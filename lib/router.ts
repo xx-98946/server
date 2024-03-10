@@ -66,6 +66,7 @@ export class Router {
                 this.to_Reg(route.path).exec(pathname)
         })
         if (matchedRoute) {
+            // console.log(matchedRoute.path)
             return matchedRoute.handler(req)
         } else {
             return new Response("未定义的API")

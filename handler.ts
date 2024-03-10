@@ -1,6 +1,5 @@
 import { ctx, Router } from "$/lib/index.ts";
 import { apiRouter } from "./api/index.ts";
-import { compsRouter } from "./comps/index.ts"
 
 export const port = 3000;
 
@@ -12,17 +11,11 @@ router
      */
     .route("/api", apiRouter)
     /**
-     * 组件列表
+     * 通用组件注册
      */
-    .route("/comps", compsRouter)
-    /**
-     * 首页
-     */
-    .get("/", () => {
-        return ctx.sendLitPage("./pages/home.js")
-    })
-    .get("/test", () => {
-        return ctx.sendLitPage("./pages/test.js")
+    .get("/comps/:comp", (req) => {
+        const { pathname } = new URL(req.url)
+        return ctx.sendFile(`.${pathname}.js`)
     })
     /**
      * 静态文件
@@ -31,6 +24,24 @@ router
         const { pathname } = new URL(req.url);
         return ctx.sendFile("." + pathname);
     })
+    /**
+     * 页面独立组件注册
+     */
+    .get("/:page/:comp", (req) => {
+        const { pathname } = new URL(req.url)
+        return ctx.sendFile(`./pages/${pathname}.js`)
+    })
+    /**
+     * 多页应用注册，
+     */
+    .get("/:page?", (req) => {
+        let { pathname } = new URL(req.url)
+        if(pathname === "/"){
+            pathname = "/home";
+        }
+        return ctx.sendLitPage(`./pages${pathname}/index.js`)
+    })
+    
 
 /**
  * 中间件： 日志
@@ -41,7 +52,12 @@ function logger(req: Request) {
 }
 
 export const handler = async (req: Request) => {
-    logger(req);
-    const res = await router.matched(req)
-    return res;
+    try{
+        logger(req);
+        const route = await router.matched(req)
+        return route;
+    }catch(error){
+        console.error(error);
+        return ()=>new Response("出错了")
+    }
 };

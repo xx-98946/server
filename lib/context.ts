@@ -87,22 +87,22 @@ export class Context {
     async sendLitPage(path: string) {
         const fileContent = await fs.readFile(path);
         const htmlTemplate = `
-        <!DOCTYPE html>
-        <html lang="zh-cn">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>网址导航</title>
-                <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
-                <link rel="stylesheet" href="/static/normalize.css">
-                <script type="module">
-                    ${fileContent}
-                </script>
-            </head>
-            <body>
-                <lit-page></lit-page>
-            </body>
-        </html>`;
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>网址导航</title>
+        <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/static/normalize.css">
+        <script type="module">
+            ${fileContent}
+        </script>
+    </head>
+    <body>
+        <lit-page></lit-page>
+    </body>
+</html>`;
         return this.sendHTML(htmlTemplate)
     }
 
