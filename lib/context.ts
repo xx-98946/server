@@ -34,8 +34,13 @@ export class Context {
         })
     }
 
-    sendJSON(objectOrString: unknown) {
-        let body = JSON.stringify(objectOrString);
+    /**
+     * 会对参数进行stringify处理
+     * @param json 
+     * @returns 
+     */
+    sendJSON(origin: unknown) {
+        let body = JSON.stringify(origin);
         return new Response(body, {
             headers: {
                 "content-type": toContentType("json")
@@ -95,6 +100,13 @@ export class Context {
         <title>网址导航</title>
         <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="/static/normalize.css">
+        <script type="importmap">
+            {
+                "imports": {
+                    "$/": "/"
+                }
+            }
+            </script>
         <script type="module">
             ${fileContent}
         </script>

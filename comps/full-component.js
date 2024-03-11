@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "/static/lit-core.min.js";
+import { LitElement, html, css } from "$/static/lit-core.min.js";
 
 export class FullComponent extends LitElement {
   static properties = {

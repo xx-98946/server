@@ -1,8 +1,4 @@
-import { LitElement, html, css } from "/static/lit-core.min.js";
-import "/comps/simple-greeting";
-import "/comps/full-component";
-import "/comps/properties-basic";
-import "/comps/parent-nest";
+import { LitElement, html, css } from "$/static/lit-core.min.js";
 
 export class TestPage extends LitElement {
   static properties = {
@@ -17,15 +13,24 @@ export class TestPage extends LitElement {
     super();
   }
 
+  async getLinkList() {
+    const res = await fetch("/api/linkList");
+    const data = await res.json();
+    console.log(data);
+  }
+
+  async changeLinkList() {
+    const res = await fetch("/api/linkList", { method: "POST" });
+    const data = await res.json();
+    console.log(data);
+  }
+
   render() {
     return html`
             <h1>组件列表</h1>
             <a href="/">/首页</a>
-            <simple-greeting></simple-greeting>
-            <full-component></full-component>
-            <properties-basic></properties-basic>
-            <parent-nest></parent-nest>
-            <hr />
+            <button @click=${this.getLinkList}>获取linkList</button>
+            <button @click=${this.changeLinkList}>修改linkList</button>
     `;
   }
 }

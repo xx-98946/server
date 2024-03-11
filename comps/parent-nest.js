@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "/static/lit-core.min.js";
+import { LitElement, html, css } from "$/static/lit-core.min.js";
 
 class ParentNest extends LitElement {
     static properties = {
